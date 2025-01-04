@@ -18,4 +18,4 @@ class GetStandardWord(Resource):
         print(f"User ID: {user_id}")
         print(len(file_path), file_path)
 
-        return self.service.get_result(file_path, user_id)
+        return self.service.get_result(file_path)

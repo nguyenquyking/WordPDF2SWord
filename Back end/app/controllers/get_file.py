@@ -5,7 +5,7 @@ import os
 from werkzeug.utils import safe_join
 from app.main.settings import Config
 
-DATASET_FOLDER = os.path.abspath(os.path.join(Config.CHROMA_DB_PATH, 'files_dataset'))
+DATASET_FOLDER = os.path.abspath(os.path.join(Config.CHROMA_DB_PATH, 'files_upload'))
 GET_FILE_ROUTE = '/get-file/<path:filename>'
 
 class GetFile(Resource):
