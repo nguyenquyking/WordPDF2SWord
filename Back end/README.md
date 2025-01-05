@@ -14,7 +14,7 @@ GEMINI_API_KEY=""
 
 4. Let the folder `user/` in folder `app/database/`
 
-5. Let the folder `images_upload/` in folder `app/database/`, so that the server could receive images uploaded by users.
+5. Let the folder `files_upload/` in folder `app/database/`, so that the server could receive files uploaded by users.
 
 6. Running
 ```
