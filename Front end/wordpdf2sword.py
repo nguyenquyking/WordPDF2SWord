@@ -4,6 +4,7 @@ import streamlit as st
 from io import BytesIO
 import requests
 import os
+from urllib.parse import unquote
 
 # Backend API endpoints
 UPLOAD_FILE_API_URL = "/upload-file"  # Endpoint for uploading files
@@ -93,9 +94,14 @@ def get_processed_file_path(file_path):
 # Function to fetch a processed file from the backend
 def fetch_file_from_backend(file_path):
     try:
-        # Extract and clean the filename
-        filename = os.path.basename(file_path).strip()  # Remove any trailing spaces or newlines
-        
+        # Decode the URL-encoded path and extract the filename
+        decoded_path = unquote(file_path)  # Decode any URL-encoded characters
+        filename = os.path.basename(decoded_path).strip()  # Extract the filename and clean it
+
+        # Debugging to verify the filename
+        print(f"Decoded path: {decoded_path}")
+        print(f"Extracted filename: {filename}")
+
         # Make the GET request to the backend
         response = requests.get(f"{st.session_state.back_end_url + GET_FILE_API_URL}/{filename}", stream=True)
         
