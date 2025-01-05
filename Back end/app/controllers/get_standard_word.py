@@ -6,8 +6,8 @@ GET_STANDARD_WORD_ROUTE = '/get-standard-word'
 class GetStandardWord(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
-        self.parser.add_argument('user_id', type=int, location='json', required=True, help='User ID is required')
-        self.parser.add_argument('file_path', type=list[str], location='json', required=False, help='Image path is required')
+        self.parser.add_argument('user_id', type=int, location='json', required=True, help='User ID is required') # not use
+        self.parser.add_argument('file_path', type=str, location='json', required=False, help='Image path is required')
         self.service = GetStandardWordService()
 
     def post(self):

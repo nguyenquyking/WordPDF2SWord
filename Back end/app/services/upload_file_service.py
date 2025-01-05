@@ -28,8 +28,7 @@ class FileService:
         return filepath
     
     def file_exists(self, filename):
-        """
-        Check if a file exists in the upload directory.
-        """
-        filepath = os.path.join(self.upload_folder, filename)
-        return os.path.exists(filepath)
+        # Ensure the filename is secure and exists in the dataset folder
+        safe_filename = secure_filename(filename)
+        file_path = os.path.join(self.dataset_folder, safe_filename)
+        return os.path.exists(file_path)

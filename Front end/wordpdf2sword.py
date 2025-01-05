@@ -3,6 +3,7 @@ import time
 import streamlit as st
 from io import BytesIO
 import requests
+import os
 
 # Backend API endpoints
 UPLOAD_FILE_API_URL = "/upload-file"  # Endpoint for uploading files
@@ -78,10 +79,11 @@ def get_processed_file_path(file_path):
     try:
         response = requests.post(
             st.session_state.back_end_url + GET_STANDARD_WORD_API_URL,
-            json={"file_path": file_path}
+            json={"user_id": st.session_state.get("session_state_id_turn", 0),
+                  "file_path": file_path}
         )
         if response.status_code == 200:
-            return response.json().get("standard_word_path")  # Return the processed file path
+            return response.text  # Return the processed file path
         else:
             st.error(f"Failed to process file '{file_path}': {response.text}")
     except Exception as e:
@@ -91,11 +93,16 @@ def get_processed_file_path(file_path):
 # Function to fetch a processed file from the backend
 def fetch_file_from_backend(file_path):
     try:
-        response = requests.get(f"{st.session_state.back_end_url + GET_FILE_API_URL}/{file_path}", stream=True)
+        # Extract and clean the filename
+        filename = os.path.basename(file_path).strip()  # Remove any trailing spaces or newlines
+        
+        # Make the GET request to the backend
+        response = requests.get(f"{st.session_state.back_end_url + GET_FILE_API_URL}/{filename}", stream=True)
+        
         if response.status_code == 200:
             return BytesIO(response.content)  # Return the file as a BytesIO object
         else:
-            st.error(f"Failed to fetch file: {response.status_code}")
+            st.error(f"Failed to fetch file '{filename}': {response.status_code}")
     except Exception as e:
         st.error(f"Error fetching file: {e}")
     return None
@@ -129,8 +136,9 @@ if st.button("Get Standard Word"):
 if fetched_files:
     st.write("Processed Files:")
     for i, (file_data, filename) in enumerate(fetched_files, 1):
+        safe_filename = filename.split("/")[-1]  # Extract only the filename
         st.download_button(
-            label=f"Download Processed File {i}: {filename}",
+            label=f"Download Processed File {i}: {safe_filename}",
             data=file_data,
-            file_name=filename
+            file_name="safe_filename.docx",
         )

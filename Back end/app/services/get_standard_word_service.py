@@ -1,13 +1,10 @@
-from app.services.gemini_service import GeminiService
-from app.services.pdf_to_word_service import PdfToWordService
+from app.services.pdf_to_standardword_service import PdfToStandardWordService
 import os
-from app.main.settings import Config
 
 class GetStandardWordService():
     def __init__(self):
-        self.gemini_service = GeminiService()
-        self.pdf_to_word_service = PdfToWordService()
+        self.pdf_to_standardword_service = PdfToStandardWordService()
     
     def get_result(self, file_path):
-        word_path = self.pdf_to_word_service.convert_pdf_to_word(file_path)
+        word_path = self.pdf_to_standardword_service.convert_pdf_to_standardword(file_path)
         return word_path
