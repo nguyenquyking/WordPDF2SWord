@@ -43,10 +43,16 @@ class DetectHeadingService:
 
         # Iterate through paragraphs and update their styles
         for paragraph in doc.paragraphs:
+            print("Paragraph text:", paragraph.text)  # Debug: Show paragraph text
             text = paragraph.text.strip()
+
+            # Check if any heading text is contained within the paragraph
             for level, texts in headings.items():
-                if text in texts:
-                    paragraph.style = f"Heading {level}"
+                for heading_text in texts:
+                    if heading_text in text:  # Check if heading text is part of the paragraph
+                        paragraph.style = f"Heading {level}"  # Set paragraph style to the heading level
+                        print(f"Set heading level {level} for paragraph: {text}")  # Debug: Log the action
+                        break  # No need to check further once a match is found
 
         # Save the updated document
         doc.save(word_path)

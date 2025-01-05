@@ -55,6 +55,7 @@ class ConvertPdfToWordService:
                             if line_text.strip():
                                 # Accumulate lines into a paragraph until a sentence-ending punctuation is found
                                 paragraph += (" " + line_text.strip()) if paragraph else line_text.strip()
+                                
                     doc.add_paragraph(paragraph.strip())  # Add the paragraph text
                     paragraph = ""  # Reset for the next paragraph
 

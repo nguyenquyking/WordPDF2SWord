@@ -12,7 +12,8 @@ class GeminiPrompt:
         Heading 1: "Text 1", "Text 2", "Text 3"
         Heading 2: "Text 1", "Text 2", "Text 3"
         Heading 3: "Text 1", "Text 2", "Text 3"
-        If any level not exist, no need to return that level.
+        The heading is often short. Some elements within headings like "Quyển", "Chương", "Phần", "Mục", "Bài", "Lịch sử", "Phát triển", "Tác động", "Ứng dụng", "Kết luận", "Tổng quan", "Phương pháp", "Đề xuất", "Giải pháp". 
+        You should include the full heading content. If any level not exist, no need to return that level.
         Focus on detecting clear and meaningful headings that organize the content logically.
         """
 
