@@ -19,6 +19,9 @@ class GetFile(Resource):
 
             # Ensure the file exists
             file_path = os.path.join(self.dataset_folder, safe_filename)
+
+            print(f"File path: {file_path}")
+            
             if not os.path.exists(file_path):
                 return jsonify({'message': 'File not found'}), 404
 

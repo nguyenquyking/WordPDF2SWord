@@ -25,6 +25,7 @@ class UploadFile(Resource):
                 return {'message': 'Invalid file type. Only PDF and Word documents are allowed.'}, 400
             
             filepath = self.file_service.save_file(uploaded_file, user_id)
+            print("file path saved: ",filepath)
             return {'message': 'File uploaded successfully', 'file_path': filepath}, 201
         else:
             return {'message': 'No file provided'}, 400
